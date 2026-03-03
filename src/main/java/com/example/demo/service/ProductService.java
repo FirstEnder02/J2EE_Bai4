@@ -38,21 +38,29 @@ public class ProductService {
     }
 
     public void updateImage(Product newProduct, MultipartFile imageProduct) {
-        String contentType = imageProduct.getContentType();
-        if (contentType == null && IllegalArgumentException("Tệp tải lên không phải là hình ảnh!")) {
+        if (imageProduct == null || imageProduct.isEmpty()) {
+            return;
         }
-        if (!imageProduct.isEmpty())
-            try {
-                Path dirImages = Paths.get("static/images");
-                if (!Files.exists(dirImages)) {
-                    Files.createDirectories(dirImages);
-                }
-                String newFileName = UUID.randomUUID() + "_" + imageProduct.getOriginalFilename();
-                Path pathFileUpload = dirImages.resolve(newFileName);
-                Files.copy(imageProduct.getInputStream(), pathFileUpload, StandardCopyOption.REPLACE_EXISTING);
-                newProduct.setImage(newFileName);
-            } catch (IOException e) {
-                e.printStackTrace();
+
+        String contentType = imageProduct.getContentType();
+        if (contentType == null || !contentType.startsWith("image/")) {
+            throw new IllegalArgumentException("Tệp tải lên không phải là hình ảnh!");
+        }
+
+        try {
+            Path dirImages = Paths.get("uploads/images");
+            if (!Files.exists(dirImages)) {
+                Files.createDirectories(dirImages);
             }
+
+            String original = imageProduct.getOriginalFilename();
+            String newFileName = UUID.randomUUID().toString() + (original != null ? "_" + original : "");
+            Path pathFileUpload = dirImages.resolve(newFileName);
+            Files.copy(imageProduct.getInputStream(), pathFileUpload, StandardCopyOption.REPLACE_EXISTING);
+
+            newProduct.setImage(newFileName);
+        } catch (IOException e) {
+            throw new RuntimeException("Không thể lưu tệp hình ảnh", e);
+        }
     }
 }
