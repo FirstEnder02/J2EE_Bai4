@@ -1,3 +1,14 @@
+package com.example.demo.service;
+
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import java.util.ArrayList;
+import java.util.List;
+import java.nio.file.*;
+import java.io.IOException;
+import java.util.UUID;
+import com.example.demo.models.Product;
+
 @Service
 public class ProductService {
     List<Product> listProduct = new ArrayList<>();

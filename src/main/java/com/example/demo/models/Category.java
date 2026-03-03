@@ -1,4 +1,7 @@
+package com.example.demo.models;
+
 import lombok.*;
+import jakarta.validation.constraints.NotBlank;
 
 @Getter @Setter
 @NoArgsConstructor

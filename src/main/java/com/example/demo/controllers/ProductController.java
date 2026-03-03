@@ -1,3 +1,18 @@
+package com.example.demo.controllers;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.multipart.MultipartFile;
+import jakarta.validation.Valid;
+
+import com.example.demo.service.ProductService;
+import com.example.demo.service.CategoryService;
+import com.example.demo.models.Product;
+import com.example.demo.models.Category;
+
 @Controller
 @RequestMapping("/products")
 public class ProductController {
