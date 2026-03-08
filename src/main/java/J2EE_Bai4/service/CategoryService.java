@@ -1,16 +1,28 @@
-package com.example.demo.service;
+package J2EE_Bai4.service;
 
 import org.springframework.stereotype.Service;
+import jakarta.annotation.PostConstruct;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import com.example.demo.models.Category;
+import J2EE_Bai4.models.Category;
 
 @Service
 public class CategoryService {
     private final List<Category> listCategory = new ArrayList<>();
 
+    @PostConstruct
+    public void init() {
+        // Stationary categories for temporary testing
+        listCategory.add(new Category(1, "Stationery"));
+        listCategory.add(new Category(2, "Office Supplies"));
+        listCategory.add(new Category(3, "Writing Instruments"));
+        listCategory.add(new Category(4, "Paper Products"));
+        listCategory.add(new Category(5, "Art & Craft"));
+    }
+
     public List<Category> getAll() {
-        return listCategory;
+        return Collections.unmodifiableList(listCategory);
     }
 
     public Category get(int id) {

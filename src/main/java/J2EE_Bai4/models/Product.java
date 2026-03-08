@@ -1,4 +1,4 @@
-package com.example.demo.models;
+package J2EE_Bai4.models;
 
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;

@@ -1,35 +1,38 @@
+<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <meta charset="UTF-8">
     <title>List products</title>
+    
 </head>
 <body>
-<div layout:fragment="content" class="container body-content">
-    <a class="btn btn-success" th:href="@{/products/create}">Create new product</a>
+<div layout:fragment="content" class="container">
+    <a class="btn btn-primary" th:href="@{/product/create}">Create New Product</a>
     <table class="table table-striped">
         <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Price</th>
-                <th>Image</th>
-                <th>Category</th>
-                <th>Action</th>
-            </tr>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Image</th>
+            <th>Category Name</th>
+            <th>Actions</th>
+        </tr>
         </thead>
         <tbody>
-            <tr th:each="p : ${listproduct}">
-                <td th:text="${p.id}"></td>
-                <td th:text="${p.name}"></td>
-                <td th:text="${p.price}"></td>
-                <td><img th:src="@{/images/{img}(img=${p.image})}" height="120" width="150" /></td>
-                <td th:text="${p.category.name}"></td>
-                <td>
-                    <a th:href="@{/products/edit/{id}(id=${p.id})}">Edit</a>
-                    |
-                    <a th:href="@{/products/delete/{id}(id=${p.id})}">Delete</a>
-                </td>
-            </tr>
+        <tr th:each="product : ${listproduct}">
+            <td th:text="${product.id}"></td>
+            <td th:text="${product.name}"></td>
+            <td th:text="${product.price}"></td>
+            <td>
+                <img th:src="@{${product.image}}" alt="Product Image" width="100"/>
+            </td>
+            <td th:text="${product.category?.name}"></td>
+            <td>
+                <a class="btn btn-warning" th:href="@{/product/edit/{id}(id=${product.id})}">Edit</a>
+                <a class="btn btn-danger" th:href="@{/product/delete/{id}(id=${product.id})}" custom:linkMethod="delete">Delete</a>
+            </td>
+        </tr>
         </tbody>
     </table>
 </div>

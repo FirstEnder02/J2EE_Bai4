@@ -1,4 +1,4 @@
-package com.example.demo.controllers;
+package J2EE_Bai4.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,10 +8,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.multipart.MultipartFile;
 import jakarta.validation.Valid;
 
-import com.example.demo.service.ProductService;
-import com.example.demo.service.CategoryService;
-import com.example.demo.models.Product;
-import com.example.demo.models.Category;
+import J2EE_Bai4.service.*;
+import J2EE_Bai4.models.*;
 
 @Controller
 @RequestMapping("/products")
@@ -36,14 +34,13 @@ public class ProductController {
 
     @PostMapping("/create")
     public String Create(@Valid Product newProduct, BindingResult result,
-                         @RequestParam("category.id") int categoryId,
+                         @RequestParam("category_id") int categoryId,
                          @RequestParam("imageProduct") MultipartFile imageProduct, Model model) {
         if (result.hasErrors()) {
             model.addAttribute("product", newProduct);
             model.addAttribute("categories", categoryService.getAll());
             return "product/create";
         }
-
         productService.updateImage(newProduct, imageProduct);
         Category selectedCategory = categoryService.get(categoryId);
         newProduct.setCategory(selectedCategory);
@@ -63,7 +60,8 @@ public class ProductController {
     }
 
     @PostMapping("/edit")
-    public String Edit(@Valid Product editProduct, BindingResult result,
+    public String Edit(@Valid Product editProduct,
+                       BindingResult result,
                        @RequestParam("imageProduct") MultipartFile imageProduct,
                        Model model) {
         if (result.hasErrors()) {
@@ -71,11 +69,9 @@ public class ProductController {
             model.addAttribute("categories", categoryService.getAll());
             return "product/edit";
         }
-
         if (imageProduct != null && !imageProduct.isEmpty()) {
             productService.updateImage(editProduct, imageProduct);
         }
-
         productService.update(editProduct);
         return "redirect:/products";
     }

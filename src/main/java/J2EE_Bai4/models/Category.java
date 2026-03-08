@@ -1,4 +1,4 @@
-package com.example.demo.models;
+package J2EE_Bai4.models;
 
 import lombok.*;
 import jakarta.validation.constraints.NotBlank;
