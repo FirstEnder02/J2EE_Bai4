@@ -25,7 +25,7 @@
             <td th:text="${product.name}"></td>
             <td th:text="${product.price}"></td>
             <td>
-                <img th:src="@{${product.image}}" alt="Product Image" width="100"/>
+                <img th:src="@{/images/{file}(file=${product.image})}" alt="Product Image" width="100"/>
             </td>
             <td th:text="${product.category?.name}"></td>
             <td>
