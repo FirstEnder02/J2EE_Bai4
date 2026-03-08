@@ -57,4 +57,8 @@ public class ProductService {
             }
         }
     }
+
+    public void delete(int id) {
+        listProduct.removeIf(p -> p.getId() == id);
+    }
 }

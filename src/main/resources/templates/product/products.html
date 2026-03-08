@@ -7,7 +7,7 @@
 </head>
 <body>
 <div layout:fragment="content" class="container">
-    <a class="btn btn-primary" th:href="@{/product/create}">Create New Product</a>
+    <a class="btn btn-primary" th:href="@{/products/create}">Create New Product</a>
     <table class="table table-striped">
         <thead>
         <tr>
@@ -29,8 +29,8 @@
             </td>
             <td th:text="${product.category?.name}"></td>
             <td>
-                <a class="btn btn-warning" th:href="@{/product/edit/{id}(id=${product.id})}">Edit</a>
-                <a class="btn btn-danger" th:href="@{/product/delete/{id}(id=${product.id})}" custom:linkMethod="delete">Delete</a>
+                <a class="btn btn-warning" th:href="@{/products/edit/{id}(id=${product.id})}">Edit</a>
+                <a class="btn btn-danger" th:href="@{/products/delete/{id}(id=${product.id})}" onclick="return confirm('Are you sure?');">Delete</a>
             </td>
         </tr>
         </tbody>
